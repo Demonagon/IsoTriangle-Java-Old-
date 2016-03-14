@@ -20,6 +20,14 @@ public class Spawner extends MovingEntity implements IterableEntity {
 		this.clock_state = 0;
 	}
 	
+	public void setSpawnClockState(int clock_state) {
+		this.clock_state = clock_state;
+	}
+	
+	public int getSpawnClockState() {
+		return clock_state;
+	}
+	
 	public void setSpawnRate(int spawn_rate) {
 		this.clock_size = spawn_rate;
 	}

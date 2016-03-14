@@ -8,6 +8,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeType;
 import core.artist.GraphicalObject;
 import core.object.Entity;
+import graphics.twodimensions.factory.JavaFXArtist2D;
 
 public class Graphic2DSquare extends Polygon implements GraphicalObject, EntityMoveListener {
 
@@ -43,7 +44,7 @@ public class Graphic2DSquare extends Polygon implements GraphicalObject, EntityM
 		this.square = (Square) object;
 		this.setScaleX(square.getRadius());
 		this.setScaleY(square.getRadius());
-		this.setFill(getFamilyFillColor(square.getFamily()));
+		this.setFill(JavaFXArtist2D.getFamilyColor(square.getFamily()));
 		
 		square.addMoveListener(this);
 		square.notifyMove();
@@ -64,17 +65,6 @@ public class Graphic2DSquare extends Polygon implements GraphicalObject, EntityM
 	@Override
 	public void setDrawingLayer() {
 		this.toFront();
-	}
-	
-	public static Color getFamilyFillColor(int family) {
-		switch(family) {
-			case Square.alpha_family : return Color.BLUE;
-			case Square.beta_family : return Color.RED;
-			case Square.gamma_family : return Color.GREEN;
-			case Square.delta_family : return Color.YELLOW;
-			case Square.epsilon_family : return Color.ORANGE;
-			default : return Color.CHOCOLATE;
-		}
 	}
 
 }
