@@ -1,15 +1,18 @@
 package implementation.object;
 
+import core.artist.GraphicalObject;
+import core.artist.PaintableEntity;
 import core.world.WorldMaster;
 import implementation.factory.MovingEntityFactory;
 
-public class Spawner extends MovingEntity implements IterableEntity {
+public class Spawner extends MovingEntity implements IterableEntity, PaintableEntity {
 	public static final int basic_spawn_rate = 50;
 	
 	WorldMaster master;
 	MovingEntityFactory factory;
 	int clock_size;
 	int clock_state;
+	GraphicalObject representation;
 	
 	public Spawner(WorldMaster master, MovingEntityFactory factory, double x, double y) {
 		this.master = master;
@@ -46,5 +49,16 @@ public class Spawner extends MovingEntity implements IterableEntity {
 			spawn.setY(getY());
 			master.spawnEntity(spawn);
 		}
+	}
+
+	@Override
+	public void setGraphicalRepresentation(GraphicalObject representation) {
+		this.representation = representation;
+	}
+
+	@Override
+	public GraphicalObject getGraphicalRepresentation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
