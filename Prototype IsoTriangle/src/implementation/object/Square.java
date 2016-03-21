@@ -8,7 +8,7 @@ import core.world.WorldMaster;
 import implementation.factory.MovingEntityFactory;
 import implementation.world.IndexMaster;
 
-public class Square extends MovingEntity implements IterableEntity, PaintableEntity {
+public class Square extends MovingEntity implements IterableEntity, PaintableEntity, TaggedEntity {
 
 	public static final int alpha_family = 0;
 	public static final int beta_family = 1;
@@ -93,11 +93,13 @@ public class Square extends MovingEntity implements IterableEntity, PaintableEnt
 		master.destroyEntity(this);
 	}
 	
-	public int getFamily() {
+	@Override
+	public int getTag() {
 		return family;
 	}
-	
-	public void setFamily(int family) {
+
+	@Override
+	public void setTag(int family) {
 		this.family = family;
 	}
 	

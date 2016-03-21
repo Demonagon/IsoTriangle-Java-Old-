@@ -4,6 +4,7 @@ import graphics.twodimensions.factory.JavaFXArtist2D;
 import graphics.twodimensions.loop.JavaFXGameLoop;
 import implementation.object.Booster;
 import implementation.object.Floor;
+import implementation.object.Objective;
 import implementation.object.Spawner;
 import implementation.object.Square;
 import implementation.world.IsoTriangleWorld;
@@ -47,6 +48,8 @@ public class Main extends Application {
 		//master.spawnEntity( new SquareSpawner(master, world.getAnalyst().getIndexMaster(), 150, 150) );
 
 		master.spawnEntity( new Spawner(master, new Square.SquareFactory(master, world.getAnalyst().getIndexMaster(), Square.alpha_family), 150, 150));
+		
+		master.spawnEntity( new Objective(master, world.getAnalyst().getIndexMaster(), 350, 350, 12, Square.alpha_family) );
 		
 		/*world.addEntity(entity1);
 		world.addEntity(entity2);

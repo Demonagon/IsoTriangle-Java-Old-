@@ -44,7 +44,7 @@ public class Graphic2DSquare extends Polygon implements GraphicalObject, EntityM
 		this.square = (Square) object;
 		this.setScaleX(square.getRadius());
 		this.setScaleY(square.getRadius());
-		this.setFill(JavaFXArtist2D.getFamilyColor(square.getFamily()));
+		this.setFill(JavaFXArtist2D.getFamilyColor(square.getTag()));
 		
 		square.addMoveListener(this);
 		square.notifyMove();

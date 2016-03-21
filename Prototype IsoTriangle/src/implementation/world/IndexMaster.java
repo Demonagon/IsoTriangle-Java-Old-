@@ -4,6 +4,7 @@ import implementation.object.Booster;
 import implementation.object.Floor;
 import implementation.object.IterableEntity;
 import implementation.object.Square;
+import implementation.object.TaggedEntity;
 import implementation.world.indexers.ObjectIndexer;
 
 public class IndexMaster {
@@ -11,20 +12,20 @@ public class IndexMaster {
 	private ObjectIndexer<Floor> floor_indexer;
 	private ObjectIndexer<IterableEntity> iterable_indexer;
 	private ObjectIndexer<Square> square_indexer;
-	//private ObjectIndexer<PaintableEntity> painting_indexer;
+	private ObjectIndexer<TaggedEntity> tagged_indexer;
 	
 	public IndexMaster(IsoTriangleWorldAnalyst main_analyst) {
 		booster_indexer = new ObjectIndexer<Booster>(Booster.class);
 		floor_indexer = new ObjectIndexer<Floor>(Floor.class);
 		iterable_indexer = new ObjectIndexer<IterableEntity>(IterableEntity.class);
 		square_indexer = new ObjectIndexer<Square>(Square.class);
-		//painting_indexer = new ObjectIndexer<PaintableEntity>(PaintableEntity.class);
+		tagged_indexer = new ObjectIndexer<TaggedEntity>(TaggedEntity.class);
 		
 		main_analyst.addAnalyst(booster_indexer);
 		main_analyst.addAnalyst(floor_indexer);
 		main_analyst.addAnalyst(iterable_indexer);
 		main_analyst.addAnalyst(square_indexer);
-		//main_analyst.addAnalyst(painting_indexer);
+		main_analyst.addAnalyst(tagged_indexer);
 	}
 	
 	public ObjectIndexer<Booster> getBoostersIndexer() {
@@ -41,5 +42,9 @@ public class IndexMaster {
 	
 	public ObjectIndexer<Square> getSquareIndexer() {
 		return square_indexer;
+	}
+	
+	public ObjectIndexer<TaggedEntity> getTaggedIndexer() {
+		return tagged_indexer;
 	}
 }
