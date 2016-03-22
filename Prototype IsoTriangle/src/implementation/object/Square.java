@@ -99,6 +99,7 @@ public class Square extends MovingEntity implements IterableEntity, PaintableEnt
 
 	@Override
 	public void setTag(String name, Object value) {
+		System.out.println("tag " + name);
 		tags.setTag(name, value);
 	}
 	

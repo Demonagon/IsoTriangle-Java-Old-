@@ -4,7 +4,6 @@ import core.artist.GraphicalObject;
 import core.object.Entity;
 import graphics.twodimensions.factory.JavaFXArtist2D;
 import implementation.object.CheckPoint;
-import implementation.object.Objective;
 import javafx.scene.Parent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;

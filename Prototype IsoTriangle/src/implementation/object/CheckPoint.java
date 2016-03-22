@@ -5,26 +5,24 @@ import java.util.List;
 import core.artist.GraphicalObject;
 import core.artist.PaintableEntity;
 import core.object.Entity;
-import core.world.WorldMaster;
 import implementation.world.IndexMaster;
 import implementation.world.indexers.ObjectIndexer;
 import util.math.MyMath;
 
 public class CheckPoint extends MovingEntity implements PaintableEntity, EntityMoveListener {
 	
-	private WorldMaster master;
 	private GraphicalObject representation;
 	private String checkpoint_id;
 	private int family;
 	
-	public CheckPoint(WorldMaster master, IndexMaster index_master, double x, double y, double radius, int family, String cp_id) {
+	public CheckPoint(IndexMaster index_master, double x, double y, double radius, int family, String cp_id) {
 		super();
 		setX(x);
 		setY(y);
 		setRadius(radius);
 		
-		this.master = master;
-
+		this.checkpoint_id = cp_id;
+		
 		new EntityHooker(this, index_master);
 		new ObjectiveHooker(this, index_master);
 	}

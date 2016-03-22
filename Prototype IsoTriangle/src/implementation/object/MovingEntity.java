@@ -1,9 +1,7 @@
 package implementation.object;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import core.object.Entity;
+import util.list.BufferedList;
 
 public abstract class MovingEntity implements Entity {
 	
@@ -12,7 +10,7 @@ public abstract class MovingEntity implements Entity {
 	
 	private double x, y, a;
 	private double old_x, old_y, old_a;
-	private List<EntityMoveListener> listeners;
+	private BufferedList<EntityMoveListener> listeners;
 	
 	private double radius;
 
@@ -26,7 +24,7 @@ public abstract class MovingEntity implements Entity {
 		this.old_y = 0;
 		this.old_a = 0;
 		this.radius = 0;
-		listeners = new LinkedList<EntityMoveListener>();
+		listeners = new BufferedList<EntityMoveListener>();
 	}
 	
 	public double getX() { return x; }
@@ -52,8 +50,10 @@ public abstract class MovingEntity implements Entity {
 	}
 	
 	public void notifyMove() {
+		listeners.setBufferingMode(true);
 		for(EntityMoveListener e : listeners)
 			e.onMove(this, old_x, old_y, old_a);
+		listeners.setBufferingMode(false);
 		
 		old_x = x;
 		old_y = y;

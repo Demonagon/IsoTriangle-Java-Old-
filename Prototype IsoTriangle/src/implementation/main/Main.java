@@ -48,11 +48,12 @@ public class Main extends Application {
 			}
 		//master.spawnEntity( new SquareSpawner(master, world.getAnalyst().getIndexMaster(), 150, 150) );
 
-		master.spawnEntity( new Spawner(master, new Square.SquareFactory(master, world.getAnalyst().getIndexMaster(), Square.alpha_family), 150, 150));
+		master.spawnEntity( new Spawner(master, new Square.SquareFactory(master, world.getAnalyst().getIndexMaster(), Square.alpha_family), 250, 250));
 		
-		master.spawnEntity( new Objective(master, world.getAnalyst().getIndexMaster(), 350, 350, 12, Square.alpha_family) );
+		master.spawnEntity( new Objective(master, world.getAnalyst().getIndexMaster(), 550, 550, 12, Square.alpha_family) );
 		
-		master.spawnEntity( new CheckPoint(master, world.getAnalyst().getIndexMaster(), 250, 250, 12, Square.alpha_family, "cp1") );
+		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 250, 550, 12, Square.alpha_family, "cp1") );
+		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 550, 250, 12, Square.alpha_family, "cp2") );
 		/*world.addEntity(entity1);
 		world.addEntity(entity2);
 		//world.addEntity(entity3);
