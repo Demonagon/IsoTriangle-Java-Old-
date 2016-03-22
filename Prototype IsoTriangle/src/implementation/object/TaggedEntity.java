@@ -2,6 +2,6 @@ package implementation.object;
 
 public interface TaggedEntity {
 	
-	public int getTag();
-	public void setTag(int tag);
+	public Object getTag(String name);
+	public void setTag(String name, Object value);
 }

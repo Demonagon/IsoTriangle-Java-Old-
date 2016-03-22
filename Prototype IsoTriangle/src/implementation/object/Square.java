@@ -21,16 +21,15 @@ public class Square extends MovingEntity implements IterableEntity, PaintableEnt
 	private GraphicalObject representation;
 	private WorldMaster master;
 	private IndexMaster index_master;
-	
-	private int family;
-	
+	private TagManager tags;
 	
 	public Square(WorldMaster master, IndexMaster index_master, int family) {
 		super();
 		this.master = master;
 		this.index_master = index_master;
 		this.setRadius(basic_radius);
-		this.family = family;
+		tags = new TagManager();
+		tags.setTag("family", new Integer(family));
 	}
 
 	@Override
@@ -94,13 +93,13 @@ public class Square extends MovingEntity implements IterableEntity, PaintableEnt
 	}
 	
 	@Override
-	public int getTag() {
-		return family;
+	public Object getTag(String name) {
+		return tags.getTag(name);
 	}
 
 	@Override
-	public void setTag(int family) {
-		this.family = family;
+	public void setTag(String name, Object value) {
+		tags.setTag(name, value);
 	}
 	
 	public static class SquareFactory implements MovingEntityFactory {

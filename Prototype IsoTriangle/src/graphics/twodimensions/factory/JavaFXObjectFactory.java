@@ -5,11 +5,13 @@ import core.artist.GraphicalObject;
 import core.object.Entity;
 import graphics.twodimensions.object.Graphic2DBooster;
 import graphics.twodimensions.object.Graphic2DFloor;
+import graphics.twodimensions.object.Graphic2DObjective;
 import graphics.twodimensions.object.Graphic2DSpawner;
 import graphics.twodimensions.object.Graphic2DSquare;
 import graphics.twodimensions.object.Graphic2DTriangle;
 import implementation.object.Booster;
 import implementation.object.Floor;
+import implementation.object.Objective;
 import implementation.object.Spawner;
 import implementation.object.Square;
 import implementation.object.Triangle;
@@ -28,6 +30,8 @@ public class JavaFXObjectFactory implements GraphicalCorrespondanceFactory {
 			return new Graphic2DFloor();
 		if( e instanceof Spawner )
 			return new Graphic2DSpawner();
+		if( e instanceof Objective )
+			return new Graphic2DObjective();
 		return null;
 	}
 
