@@ -11,12 +11,13 @@ import implementation.world.IndexMaster;
 import implementation.world.indexers.ObjectIndexer;
 import util.math.MyMath;
 
-public class Objective extends MovingEntity implements PaintableEntity, EntityMoveListener, BoosterListener, TaggedEntity {
+public class Objective extends MovingEntity implements PaintableEntity, EntityMoveListener, BoosterListener {
 	
 	private WorldMaster master;
 	private int counter;
 	private GraphicalObject representation;
-	private TagManager tags;
+	private int family;
+	private List<CheckPoint> related_checkpoints;
 	
 	private List<ScoreListener> score_listeners;
 	
@@ -27,9 +28,9 @@ public class Objective extends MovingEntity implements PaintableEntity, EntityMo
 		setRadius(radius);
 		
 		this.counter = 0;
+		this.family = family;
 		
-		tags = new TagManager();
-		tags.setTag("family", new Integer(family));
+		related_checkpoints = new LinkedList<CheckPoint>();
 		
 		this.master = master;
 		
@@ -39,6 +40,17 @@ public class Objective extends MovingEntity implements PaintableEntity, EntityMo
 		new EntityHooker(this, index_master);
 		new BoosterHooker(this, index_master);
 	}
+	
+	public void onContact(MovingEntity entity) {
+		if( ! ( entity instanceof TaggedEntity ) ) return;
+		TaggedEntity t = (TaggedEntity) entity;
+		
+		for( CheckPoint cp : related_checkpoints )
+			if( t.getTag(cp.getCheckPointID()) == null ) return;
+		
+		master.destroyEntity(entity);
+		updateScore(counter + 1);
+	}
 
 	@Override
 	public void onMove(Entity entity, double old_x, double old_y, double old_a) {
@@ -46,20 +58,16 @@ public class Objective extends MovingEntity implements PaintableEntity, EntityMo
 		
 		MovingEntity m = (MovingEntity) entity;
 		
-		if( MyMath.distance(m.getX(), m.getY(), getX(), getY()) <= m.getRadius() + this.getRadius() ) {
-			master.destroyEntity(m);
-			updateScore(counter + 1);
-		}
+		if( MyMath.distance(m.getX(), m.getY(), getX(), getY()) <= m.getRadius() + this.getRadius() )
+			onContact(m);
 	}
 	
-	@Override
-	public Object getTag(String name) {
-		return tags.getTag(name);
+	public int getFamily() {
+		return family;
 	}
-
-	@Override
-	public void setTag(String name, Object value) {
-		tags.setTag(name, value);
+	
+	public void setFamily(int family) {
+		this.family = family;
 	}
 
 	@Override
@@ -97,6 +105,10 @@ public class Objective extends MovingEntity implements PaintableEntity, EntityMo
 		return representation;
 	}
 	
+	public void addCheckPoint(CheckPoint cp) {
+		related_checkpoints.add(cp);
+	}
+	
 	public static class EntityHooker implements ObjectIndexer.Listener<TaggedEntity> {
 
 		private Objective main;
@@ -112,18 +124,14 @@ public class Objective extends MovingEntity implements PaintableEntity, EntityMo
 		
 		@Override
 		public void onSpawn(TaggedEntity t) {
-			if( t instanceof Objective ) return;
 			int t_family = (Integer) t.getTag("family");
-			int m_family = (Integer) main.getTag("family");
-			if( t_family != m_family ) return;
+			if( t_family != main.family ) return;
 			if( ! ( t instanceof MovingEntity ) ) return;
 			
 			MovingEntity m = (MovingEntity) t;
 			
-			if( MyMath.distance(m.getX(), m.getY(), main.getX(), main.getY()) <= m.getRadius() + main.getRadius() ) {
-				main.master.destroyEntity(m);
-				main.updateScore(main.counter + 1);
-			}
+			if( MyMath.distance(m.getX(), m.getY(), main.getX(), main.getY()) <= m.getRadius() + main.getRadius() )
+				main.onContact(m);
 			else
 				m.addMoveListener(main);
 		}

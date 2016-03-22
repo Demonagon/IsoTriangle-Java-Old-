@@ -63,4 +63,8 @@ public abstract class MovingEntity implements Entity {
 	public void addMoveListener(EntityMoveListener listener) {
 		listeners.add(listener);
 	}
+	
+	public void removeMoveListener(EntityMoveListener listener) {
+		listeners.remove(listener);
+	}
 }

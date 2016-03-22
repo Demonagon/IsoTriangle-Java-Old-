@@ -3,6 +3,7 @@ package implementation.main;
 import graphics.twodimensions.factory.JavaFXArtist2D;
 import graphics.twodimensions.loop.JavaFXGameLoop;
 import implementation.object.Booster;
+import implementation.object.CheckPoint;
 import implementation.object.Floor;
 import implementation.object.Objective;
 import implementation.object.Spawner;
@@ -51,6 +52,7 @@ public class Main extends Application {
 		
 		master.spawnEntity( new Objective(master, world.getAnalyst().getIndexMaster(), 350, 350, 12, Square.alpha_family) );
 		
+		master.spawnEntity( new CheckPoint(master, world.getAnalyst().getIndexMaster(), 250, 250, 12, Square.alpha_family, "cp1") );
 		/*world.addEntity(entity1);
 		world.addEntity(entity2);
 		//world.addEntity(entity3);

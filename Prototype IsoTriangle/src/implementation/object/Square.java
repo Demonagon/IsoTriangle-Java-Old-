@@ -29,7 +29,7 @@ public class Square extends MovingEntity implements IterableEntity, PaintableEnt
 		this.index_master = index_master;
 		this.setRadius(basic_radius);
 		tags = new TagManager();
-		tags.setTag("family", new Integer(family));
+		setTag("family", new Integer(family));
 	}
 
 	@Override
