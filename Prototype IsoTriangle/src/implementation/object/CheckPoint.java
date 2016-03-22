@@ -21,6 +21,8 @@ public class CheckPoint extends MovingEntity implements PaintableEntity, EntityM
 		setY(y);
 		setRadius(radius);
 		
+		this.family = family;
+		
 		this.checkpoint_id = cp_id;
 		
 		new EntityHooker(this, index_master);

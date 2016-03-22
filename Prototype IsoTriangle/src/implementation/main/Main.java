@@ -8,6 +8,7 @@ import implementation.object.Floor;
 import implementation.object.Objective;
 import implementation.object.Spawner;
 import implementation.object.Square;
+import implementation.world.IndexMaster;
 import implementation.world.IsoTriangleWorld;
 import implementation.world.IsoTriangleWorldMaster;
 import javafx.application.Application;
@@ -37,23 +38,31 @@ public class Main extends Application {
 		
 
 		
-		master.spawnEntity(new Floor(500, 500, 800, 800, 0));
+		master.spawnEntity(new Floor(350, 350, 500, 500, 0));
 		
-		for(int x = 150; x < 950; x += 100)
-			for(int y = 150; y < 950; y += 100) {
+		for(int x = 150; x < 650; x += 100)
+			for(int y = 150; y < 650; y += 100) {
 				Booster booster = new Booster();
 				booster.setX(x);
 				booster.setY(y);
 				master.spawnEntity(booster);
 			}
 		//master.spawnEntity( new SquareSpawner(master, world.getAnalyst().getIndexMaster(), 150, 150) );
+		
+		IndexMaster index = world.getAnalyst().getIndexMaster();
+		
+		Square.SquareFactory alpha_factory = new Square.SquareFactory(master, index, Square.alpha_family);
+		Square.SquareFactory beta_factory = new Square.SquareFactory(master, index, Square.beta_family);
+		//Square.SquareFactory gamma_factory = new Square.SquareFactory(master, index, Square.gamma_family);
 
-		master.spawnEntity( new Spawner(master, new Square.SquareFactory(master, world.getAnalyst().getIndexMaster(), Square.alpha_family), 250, 250));
+		master.spawnEntity( new Spawner(master, alpha_factory, 150, 150));
+		master.spawnEntity( new Spawner(master, beta_factory, 550, 550));
 		
-		master.spawnEntity( new Objective(master, world.getAnalyst().getIndexMaster(), 550, 550, 12, Square.alpha_family) );
+		master.spawnEntity( new Objective(master, index, 450, 550, 12, Square.alpha_family) );
+		master.spawnEntity( new Objective(master, index, 250, 150, 12, Square.beta_family) );
 		
-		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 250, 550, 12, Square.alpha_family, "cp1") );
-		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 550, 250, 12, Square.alpha_family, "cp2") );
+		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 150, 550, 12, Square.alpha_family, "cp1") );
+		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 550, 150, 12, Square.alpha_family, "cp1") );
 		/*world.addEntity(entity1);
 		world.addEntity(entity2);
 		//world.addEntity(entity3);
