@@ -115,9 +115,13 @@ public class Objective extends MovingEntity implements PaintableEntity, EntityMo
 		
 		public EntityHooker(Objective main, IndexMaster index_master) {
 			this.main = main;
-			index_master.getTaggedIndexer().addListener(this);
 			
-			List<TaggedEntity> list = index_master.getTaggedIndexer().getList();
+			ObjectIndexer<TaggedEntity> indexer = new IndexMaster.Accessor<TaggedEntity>(index_master)
+														.getIndexer(TaggedEntity.class);
+			
+			indexer.addListener(this);
+			
+			List<TaggedEntity> list = indexer.getList();
 			for(TaggedEntity e : list)
 				onSpawn(e);
 		}
@@ -147,9 +151,12 @@ public class Objective extends MovingEntity implements PaintableEntity, EntityMo
 		
 		public BoosterHooker(Objective main, IndexMaster index_master) {
 			this.main = main;
-			index_master.getBoostersIndexer().addListener(this);
 			
-			List<Booster> list = index_master.getBoostersIndexer().getList();
+			ObjectIndexer<Booster> booster_indexer = new IndexMaster.Accessor<Booster>(index_master).getIndexer(Booster.class);
+			
+			booster_indexer.addListener(this);
+			
+			List<Booster> list = booster_indexer.getList();
 			for(Booster e : list)
 				onSpawn(e);
 		}

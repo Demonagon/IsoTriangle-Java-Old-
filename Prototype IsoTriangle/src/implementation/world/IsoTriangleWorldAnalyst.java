@@ -31,12 +31,20 @@ public class IsoTriangleWorldAnalyst implements EntityRemovalAnalyst, EntitySpaw
 		graphic_analyst = new GraphicWorldAnalyst(catch_master, artist);
 	}
 	
+	public void accessIndexers() {
+		graphic_analyst.accessCatchers();
+	}
+	
 	public GraphicWorldAnalyst getGraphicAnalyst() {
 		return graphic_analyst;
 	}
 	
 	public IndexMaster getIndexMaster() {
 		return index_master;
+	}
+	
+	public CatchMaster getCatchMaster() {
+		return catch_master;
 	}
 	
 	public void addAnalyst(WorldAnalyst analyst) {

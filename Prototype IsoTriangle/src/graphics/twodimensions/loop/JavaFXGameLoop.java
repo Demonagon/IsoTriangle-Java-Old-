@@ -3,24 +3,27 @@ package graphics.twodimensions.loop;
 import graphics.twodimensions.factory.JavaFXArtist2D;
 import implementation.object.IterableEntity;
 import implementation.world.IndexMaster;
+import implementation.world.indexers.ObjectIndexer;
 import javafx.animation.AnimationTimer;
 
 public class JavaFXGameLoop extends AnimationTimer {
 
 	JavaFXArtist2D artist;
-	IndexMaster index_master;
+	
+	private ObjectIndexer<IterableEntity> iterable_entity_index;
 	
 	public JavaFXGameLoop(JavaFXArtist2D artist, IndexMaster index_master) {
 		this.artist = artist;
-		this.index_master = index_master;
+		
+		iterable_entity_index = new IndexMaster.Accessor<IterableEntity>(index_master).getIndexer(IterableEntity.class);
 	}
 	
 	@Override
 	public void handle(long now) {
-		index_master.getIterableEntityIndexer().setStackingMode(true);
-		for(IterableEntity e : index_master.getIterableEntityIndexer().getList())
+		iterable_entity_index.setStackingMode(true);
+		for(IterableEntity e : iterable_entity_index.getList())
 			e.iterate();
-		index_master.getIterableEntityIndexer().setStackingMode(false);
+		iterable_entity_index.setStackingMode(false);
 	}
 
 }

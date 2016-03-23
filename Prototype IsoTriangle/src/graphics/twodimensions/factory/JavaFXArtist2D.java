@@ -4,47 +4,36 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import core.artist.Artist;
+import core.artist.GraphicalAsset;
 import core.artist.GraphicalObject;
 import core.artist.PaintableEntity;
+import core.world.WorldMaster;
 import implementation.object.Square;
 
 public class JavaFXArtist2D extends Artist {
 
-	Group root;
+	private Group root;
+	private WorldMaster master;
 
 	public JavaFXArtist2D() {
 		super(new JavaFXObjectFactory());
 		root = new Group();
 	}
-
-	@Override
-	public void notifyObject(PaintableEntity entity) {
-		GraphicalObject o = this.addGraphics(entity);
-		
-		if( ! ( o instanceof Node ) ) {
-			System.err.println("Error : invalid graphic object type " +
-								o.getClass().getName() );
-			return;
-		}
-		
-		Node n = (Node) o;
-		root.getChildren().add(n);
+	
+	public void setWorldMaster(WorldMaster master) {
+		this.master = master;
 	}
 
 	@Override
-	public void removeObject(PaintableEntity entity) {
+	public void paintObject(PaintableEntity entity) {
+		GraphicalObject o = this.addGraphics(entity);
+		master.spawnEntity(o);
+	}
+
+	@Override
+	public void eraseObject(PaintableEntity entity) {
 		GraphicalObject o = entity.getGraphicalRepresentation();
-		
-		if( ! ( o instanceof Node ) ) {
-			System.err.println("Error : invalid graphic object type " +
-								o.getClass().getName() );
-			return;
-		}
-		
-		Node n = (Node) o;
-		
-		root.getChildren().remove(n);
-		o.setDrawingLayer();
+		master.destroyEntity(o);
 	}
 	
 	public Group getRoot() {
@@ -60,6 +49,31 @@ public class JavaFXArtist2D extends Artist {
 			case Square.epsilon_family : return Color.ORANGE;
 			default : return Color.CHOCOLATE;
 		}
+	}
+
+	@Override
+	public void addAsset(GraphicalAsset o) {
+		if( ! ( o instanceof Node ) ) {
+			System.err.println("Error : invalid graphic object type " +
+								o.getClass().getName() );
+			return;
+		}
+		
+		Node n = (Node) o;
+		root.getChildren().add(n);
+		o.setDrawingLayer();
+	}
+
+	@Override
+	public void removeAsset(GraphicalAsset o) {
+		if( ! ( o instanceof Node ) ) {
+			System.err.println("Error : invalid graphic object type " +
+								o.getClass().getName() );
+			return;
+		}
+		
+		Node n = (Node) o;
+		root.getChildren().remove(n);
 	}
 
 }

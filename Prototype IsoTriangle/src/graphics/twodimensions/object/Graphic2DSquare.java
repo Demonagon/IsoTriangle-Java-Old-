@@ -1,14 +1,15 @@
 package graphics.twodimensions.object;
 
+import controls.simplecontrols.SquareController;
+import core.artist.GraphicalObject;
+import core.object.Entity;
+import graphics.twodimensions.factory.JavaFXArtist2D;
 import implementation.object.EntityMoveListener;
 import implementation.object.Square;
 import javafx.animation.Transition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeType;
-import core.artist.GraphicalObject;
-import core.object.Entity;
-import graphics.twodimensions.factory.JavaFXArtist2D;
 
 public class Graphic2DSquare extends Polygon implements GraphicalObject, EntityMoveListener {
 
@@ -48,6 +49,8 @@ public class Graphic2DSquare extends Polygon implements GraphicalObject, EntityM
 		
 		square.addMoveListener(this);
 		square.notifyMove();
+		
+		new SquareController(this, square);
 	}
 
 	@Override

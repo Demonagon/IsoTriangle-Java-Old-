@@ -1,5 +1,9 @@
 package implementation.world;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import graphics.twodimensions.object.Graphic2DFloor;
 import implementation.object.Booster;
 import implementation.object.Floor;
 import implementation.object.IterableEntity;
@@ -9,50 +13,58 @@ import implementation.object.TaggedEntity;
 import implementation.world.indexers.ObjectIndexer;
 
 public class IndexMaster {
-	private ObjectIndexer<Booster> booster_indexer;
+	private Map<Object, Object> indexers;
+	
+	/*private ObjectIndexer<Booster> booster_indexer;
 	private ObjectIndexer<Floor> floor_indexer;
 	private ObjectIndexer<IterableEntity> iterable_indexer;
 	private ObjectIndexer<Square> square_indexer;
 	private ObjectIndexer<TaggedEntity> tagged_indexer;
-	private ObjectIndexer<Objective> objective_indexer;
+	private ObjectIndexer<Objective> objective_indexer;*/
+	
+	private IsoTriangleWorldAnalyst main_analyst;
 	
 	public IndexMaster(IsoTriangleWorldAnalyst main_analyst) {
-		booster_indexer = new ObjectIndexer<Booster>(Booster.class);
-		floor_indexer = new ObjectIndexer<Floor>(Floor.class);
-		iterable_indexer = new ObjectIndexer<IterableEntity>(IterableEntity.class);
-		square_indexer = new ObjectIndexer<Square>(Square.class);
-		tagged_indexer = new ObjectIndexer<TaggedEntity>(TaggedEntity.class);
-		objective_indexer = new ObjectIndexer<Objective>(Objective.class);
+		indexers = new HashMap<Object, Object>();
+		this.main_analyst = main_analyst;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public void addIndexer(Class type, ObjectIndexer indexer) {
+		indexers.put(type, indexer);
+		main_analyst.addAnalyst(indexer);
+	}
+	
+	public static class Accessor<T> {
 		
-		main_analyst.addAnalyst(booster_indexer);
-		main_analyst.addAnalyst(floor_indexer);
-		main_analyst.addAnalyst(iterable_indexer);
-		main_analyst.addAnalyst(square_indexer);
-		main_analyst.addAnalyst(tagged_indexer);
-		main_analyst.addAnalyst(objective_indexer);
+		private IndexMaster master;
+		
+		public Accessor(IndexMaster master) {
+			this.master = master;
+		}
+		
+		public ObjectIndexer<T> getIndexer(Class<T> type) {
+			if ( ! master.indexers.containsKey(type) ) {
+				System.err.println("Error : no indexer for type " + type.getName());
+				return null;
+			}
+			
+			Object result = master.indexers.get(type);
+			
+			if( ! (result instanceof ObjectIndexer<?>) ) {
+				System.err.println("Error in IndexMaster : object at class " + type.getName() + " is not an indexer, but of class " +
+								   result.getClass() );
+				return null;
+			}
+			
+			@SuppressWarnings("unchecked")
+			ObjectIndexer<T> indexer = (ObjectIndexer<T>) result;
+			return indexer;
+		}
 	}
 	
-	public ObjectIndexer<Booster> getBoostersIndexer() {
-		return booster_indexer;
-	}
-	
-	public ObjectIndexer<Floor> getFloorIndexer() {
-		return floor_indexer;
-	}
-	
-	public ObjectIndexer<IterableEntity> getIterableEntityIndexer() {
-		return iterable_indexer;
-	}
-	
-	public ObjectIndexer<Square> getSquareIndexer() {
-		return square_indexer;
-	}
-	
-	public ObjectIndexer<TaggedEntity> getTaggedIndexer() {
-		return tagged_indexer;
-	}
-	
-	public ObjectIndexer<Objective> getObjectiveIndexer() {
-		return objective_indexer;
+	@SuppressWarnings("rawtypes")
+	public Object getIndexer(Class type) {
+		return indexers.get(type);
 	}
 }

@@ -1,16 +1,24 @@
 package implementation.main;
 
+import core.artist.GraphicalAsset;
+import core.artist.PaintableEntity;
 import graphics.twodimensions.factory.JavaFXArtist2D;
 import graphics.twodimensions.loop.JavaFXGameLoop;
+import graphics.twodimensions.object.Graphic2DFloor;
 import implementation.object.Booster;
 import implementation.object.CheckPoint;
 import implementation.object.Floor;
+import implementation.object.IterableEntity;
 import implementation.object.Objective;
 import implementation.object.Spawner;
 import implementation.object.Square;
+import implementation.object.TaggedEntity;
+import implementation.world.CatchMaster;
 import implementation.world.IndexMaster;
 import implementation.world.IsoTriangleWorld;
 import implementation.world.IsoTriangleWorldMaster;
+import implementation.world.catcher.ObjectCatcher;
+import implementation.world.indexers.ObjectIndexer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,8 +35,26 @@ public class Main extends Application {
 	public void start(Stage primary_stage) throws Exception {
 		JavaFXArtist2D artist = new JavaFXArtist2D();
 		IsoTriangleWorldMaster master = new IsoTriangleWorldMaster(artist);
+		artist.setWorldMaster(master);
 		
 		IsoTriangleWorld world = (IsoTriangleWorld) master.getWorld();
+
+		CatchMaster catcher = world.getAnalyst().getCatchMaster();
+
+		catcher.addCatcher(PaintableEntity.class, new ObjectCatcher<PaintableEntity>(PaintableEntity.class));
+		catcher.addCatcher(GraphicalAsset.class, new ObjectCatcher<GraphicalAsset>(GraphicalAsset.class));
+		
+		IndexMaster index = world.getAnalyst().getIndexMaster();
+
+		index.addIndexer(Booster.class, new ObjectIndexer<Booster>(Booster.class));
+		index.addIndexer(Floor.class, new ObjectIndexer<Floor>(Floor.class));
+		index.addIndexer(IterableEntity.class, new ObjectIndexer<IterableEntity>(IterableEntity.class));
+		index.addIndexer(Square.class, new ObjectIndexer<Square>(Square.class));
+		index.addIndexer(TaggedEntity.class, new ObjectIndexer<TaggedEntity>(TaggedEntity.class));
+		index.addIndexer(Objective.class, new ObjectIndexer<Objective>(Objective.class));
+		index.addIndexer(Graphic2DFloor.class, new ObjectIndexer<Graphic2DFloor>(Graphic2DFloor.class));
+		
+		world.getAnalyst().accessIndexers();
 		
 		JavaFXGameLoop game_loop = new JavaFXGameLoop(artist, world.getAnalyst().getIndexMaster());
 		
@@ -38,7 +64,8 @@ public class Main extends Application {
 		
 
 		
-		master.spawnEntity(new Floor(350, 350, 500, 500, 0));
+		master.spawnEntity(new Floor(250, 250, 500, 500, 45));
+		master.spawnEntity(new Floor(500, 500, 200, 200, 12));
 		
 		for(int x = 150; x < 650; x += 100)
 			for(int y = 150; y < 650; y += 100) {
@@ -48,8 +75,6 @@ public class Main extends Application {
 				master.spawnEntity(booster);
 			}
 		//master.spawnEntity( new SquareSpawner(master, world.getAnalyst().getIndexMaster(), 150, 150) );
-		
-		IndexMaster index = world.getAnalyst().getIndexMaster();
 		
 		Square.SquareFactory alpha_factory = new Square.SquareFactory(master, index, Square.alpha_family);
 		Square.SquareFactory beta_factory = new Square.SquareFactory(master, index, Square.beta_family);
@@ -62,7 +87,7 @@ public class Main extends Application {
 		master.spawnEntity( new Objective(master, index, 250, 150, 12, Square.beta_family) );
 		
 		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 150, 550, 12, Square.alpha_family, "cp1") );
-		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 550, 150, 12, Square.alpha_family, "cp1") );
+		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 550, 150, 12, Square.alpha_family, "cp2") );
 		/*world.addEntity(entity1);
 		world.addEntity(entity2);
 		//world.addEntity(entity3);

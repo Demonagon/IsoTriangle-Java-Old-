@@ -28,6 +28,8 @@ public abstract class Artist {
 		this.factory = factory;
 	}
 	
-	public abstract void notifyObject(PaintableEntity entity);
-	public abstract void removeObject(PaintableEntity entity);
+	public abstract void paintObject(PaintableEntity entity);
+	public abstract void eraseObject(PaintableEntity entity);
+	public abstract void addAsset(GraphicalAsset entity);
+	public abstract void removeAsset(GraphicalAsset entity);
 }

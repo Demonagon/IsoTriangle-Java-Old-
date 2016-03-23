@@ -71,9 +71,13 @@ public class CheckPoint extends MovingEntity implements PaintableEntity, EntityM
 		
 		public EntityHooker(CheckPoint main, IndexMaster index_master) {
 			this.main = main;
-			index_master.getTaggedIndexer().addListener(this);
+
+			ObjectIndexer<TaggedEntity> indexer = new IndexMaster.Accessor<TaggedEntity>(index_master)
+					.getIndexer(TaggedEntity.class);
 			
-			List<TaggedEntity> list = index_master.getTaggedIndexer().getList();
+			indexer.addListener(this);
+			
+			List<TaggedEntity> list = indexer.getList();
 			for(TaggedEntity e : list)
 				onSpawn(e);
 		}
@@ -103,9 +107,12 @@ public class CheckPoint extends MovingEntity implements PaintableEntity, EntityM
 		
 		public ObjectiveHooker(CheckPoint main, IndexMaster index_master) {
 			this.main = main;
-			index_master.getObjectiveIndexer().addListener(this);
 			
-			List<Objective> list = index_master.getObjectiveIndexer().getList();
+			ObjectIndexer<Objective> indexer = new IndexMaster.Accessor<Objective>(index_master).getIndexer(Objective.class);
+			
+			indexer.addListener(this);
+			
+			List<Objective> list = indexer.getList();
 			for(Objective e : list)
 				onSpawn(e);
 		}
