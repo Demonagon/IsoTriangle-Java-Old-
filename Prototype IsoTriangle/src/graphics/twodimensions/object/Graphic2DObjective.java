@@ -23,7 +23,6 @@ public class Graphic2DObjective extends Parent implements GraphicalObject, Objec
 		text.setFont(new Font(20));
 		
 		circle = new Circle();
-		circle.setRadius(20);
 		circle.setFill(null);
 		circle.setStroke(Color.RED);
 		
@@ -44,6 +43,7 @@ public class Graphic2DObjective extends Parent implements GraphicalObject, Objec
 		text.setText( "" + objective.getScore() );
 		text.setTranslateX(objective.getX() - 6);
 		text.setTranslateY(objective.getY() + 7);
+		circle.setRadius(objective.getRadius());
 		circle.setTranslateX(objective.getX());
 		circle.setTranslateY(objective.getY());
 

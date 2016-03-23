@@ -5,6 +5,7 @@ import core.artist.PaintableEntity;
 import graphics.twodimensions.factory.JavaFXArtist2D;
 import graphics.twodimensions.loop.JavaFXGameLoop;
 import graphics.twodimensions.object.Graphic2DFloor;
+import graphics.twodimensions.object.Graphic2DFloorCover;
 import implementation.object.Booster;
 import implementation.object.CheckPoint;
 import implementation.object.Floor;
@@ -62,10 +63,13 @@ public class Main extends Application {
 		//MovingEntity entity2 = new Square(world.getAnalyst().getIndexMaster());
 		//MovingEntity entity3 = new Triangle();
 		
-
+		// -> wow !
+		System.gc();
 		
-		master.spawnEntity(new Floor(250, 250, 500, 500, 45));
-		master.spawnEntity(new Floor(500, 500, 200, 200, 12));
+		master.spawnEntity(new Graphic2DFloorCover(index));
+		
+		master.spawnEntity(new Floor(250, 250, 560, 560, 45));
+		master.spawnEntity(new Floor(500, 500, 200, 200, 45));
 		
 		for(int x = 150; x < 650; x += 100)
 			for(int y = 150; y < 650; y += 100) {
@@ -83,11 +87,11 @@ public class Main extends Application {
 		master.spawnEntity( new Spawner(master, alpha_factory, 150, 150));
 		master.spawnEntity( new Spawner(master, beta_factory, 550, 550));
 		
-		master.spawnEntity( new Objective(master, index, 450, 550, 12, Square.alpha_family) );
-		master.spawnEntity( new Objective(master, index, 250, 150, 12, Square.beta_family) );
+		master.spawnEntity( new Objective(master, index, 450, 550, 20, Square.alpha_family) );
+		master.spawnEntity( new Objective(master, index, 250, 150, 20, Square.beta_family) );
 		
-		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 150, 550, 12, Square.alpha_family, "cp1") );
-		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 550, 150, 12, Square.alpha_family, "cp2") );
+		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 150, 550, 20, Square.alpha_family, "cp1") );
+		master.spawnEntity( new CheckPoint(world.getAnalyst().getIndexMaster(), 550, 150, 20, Square.alpha_family, "cp2") );
 		/*world.addEntity(entity1);
 		world.addEntity(entity2);
 		//world.addEntity(entity3);

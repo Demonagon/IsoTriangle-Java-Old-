@@ -23,9 +23,10 @@ public class Graphic2DFloor extends Rectangle implements GraphicalObject {
 		this.setHeight(floor.getHeight());
 		this.setRotate(-floor.getAngle());
 		
-		this.setStrokeWidth(4);
-		this.setStroke(Color.BLACK);
-		this.setFill(Color.LIGHTGRAY);
+		//this.setStrokeWidth(4);
+		//this.setStroke(Color.BLACK);
+		//this.setFill(Color.LIGHTGRAY);
+		this.setVisible(false);
 	}
 
 	@Override

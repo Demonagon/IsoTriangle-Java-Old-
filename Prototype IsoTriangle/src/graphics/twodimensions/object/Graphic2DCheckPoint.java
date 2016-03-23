@@ -23,7 +23,6 @@ public class Graphic2DCheckPoint extends Parent implements GraphicalObject {
 		text.setFont(new Font(20));
 		
 		circle = new Circle();
-		circle.setRadius(20);
 		circle.setFill(null);
 		circle.setStroke(Color.RED);
 		
@@ -43,6 +42,7 @@ public class Graphic2DCheckPoint extends Parent implements GraphicalObject {
 		check_point = (CheckPoint) object;
 		text.setTranslateX(check_point.getX() - 6);
 		text.setTranslateY(check_point.getY() + 7);
+		circle.setRadius(check_point.getRadius());
 		circle.setTranslateX(check_point.getX());
 		circle.setTranslateY(check_point.getY());
 
