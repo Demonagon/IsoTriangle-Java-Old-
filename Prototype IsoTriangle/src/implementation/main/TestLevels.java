@@ -48,5 +48,10 @@ public abstract class TestLevels {
 				booster.setY(y);
 				master.spawnEntity(booster);
 			}
+		
+		Square.SquareFactory alpha_factory = new Square.SquareFactory(master, index, Square.alpha_family);
+
+		master.spawnEntity( new Spawner(master, alpha_factory, 275, 775));
+		master.spawnEntity( new Objective(master, index, 775, 275, 20, Square.alpha_family) );
 	}
 }
