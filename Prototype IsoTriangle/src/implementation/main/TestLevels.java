@@ -54,4 +54,26 @@ public abstract class TestLevels {
 		master.spawnEntity( new Spawner(master, alpha_factory, 275, 775));
 		master.spawnEntity( new Objective(master, index, 775, 275, 20, Square.alpha_family) );
 	}
+	
+	public static void level_grand_quadruble(WorldMaster master, IndexMaster index) {
+		master.spawnEntity(new Floor(525, 275, 846, 350, 0));
+		master.spawnEntity(new Floor(525, 275, 846, 350, 0));
+		//master.spawnEntity(new Floor(275, 525, 350, 850, 0));
+		
+		for(int x = 175; x < 950; x += 100)
+			for(int y = 175; y < 950; y += 100) {
+				if( x > 400 && y > 400 ) continue;
+				Booster booster = new Booster();
+				booster.setX(x);
+				booster.setY(y);
+				master.spawnEntity(booster);
+			}
+		
+		Square.SquareFactory alpha_factory = new Square.SquareFactory(master, index, Square.alpha_family);
+		Square.SquareFactory beta_factory = new Square.SquareFactory(master, index, Square.beta_family);
+		Square.SquareFactory gamma_factory = new Square.SquareFactory(master, index, Square.gamma_family);
+
+		master.spawnEntity( new Spawner(master, alpha_factory, 275, 775));
+		master.spawnEntity( new Objective(master, index, 775, 275, 20, Square.alpha_family) );
+	}
 }

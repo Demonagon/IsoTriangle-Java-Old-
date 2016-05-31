@@ -10,7 +10,7 @@ import core.artist.PaintableEntity;
 public class Booster implements PaintableEntity {
 	
 	public static final double basic_size = 70;
-	public static final double effect_on_squares = 0.12;
+	public static final double effect_on_squares = 0.25;
 	public static final int basic_angle_positions = 32;
 	
 	private GraphicalObject representation;

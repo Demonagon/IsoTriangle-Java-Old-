@@ -66,7 +66,7 @@ public class Main extends Application {
 		
 		// Début des objets
 		
-		TestLevels.level_virage_simple(master, index);
+		TestLevels.level_grand_quadruble(master, index);
 		
 		// Fin des objets
 		
