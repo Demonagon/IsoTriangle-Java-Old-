@@ -3,10 +3,7 @@ package implementation.world;
 import java.util.HashMap;
 import java.util.Map;
 
-import core.artist.GraphicalAsset;
-import core.artist.PaintableEntity;
 import implementation.world.catcher.ObjectCatcher;
-import implementation.world.indexers.ObjectIndexer;
 
 public class CatchMaster {
 	private Map<Object, Object> catchers;

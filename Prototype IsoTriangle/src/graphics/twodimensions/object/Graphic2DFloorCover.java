@@ -1,13 +1,11 @@
 package graphics.twodimensions.object;
 
+import core.artist.GraphicalAsset;
+import implementation.world.IndexMaster;
+import implementation.world.indexers.ObjectIndexer;
 import javafx.scene.Parent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
-import core.artist.GraphicalAsset;
-import core.artist.GraphicalObject;
-import core.object.Entity;
-import implementation.world.IndexMaster;
-import implementation.world.indexers.ObjectIndexer;
 
 public class Graphic2DFloorCover extends Parent implements GraphicalAsset, ObjectIndexer.Listener<Graphic2DFloor> {
 

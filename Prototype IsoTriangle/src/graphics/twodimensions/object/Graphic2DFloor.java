@@ -1,9 +1,8 @@
 package graphics.twodimensions.object;
 
-import implementation.object.Floor;
 import core.artist.GraphicalObject;
 import core.object.Entity;
-import javafx.scene.paint.Color;
+import implementation.object.Floor;
 import javafx.scene.shape.Rectangle;
 
 public class Graphic2DFloor extends Rectangle implements GraphicalObject {

@@ -3,13 +3,6 @@ package implementation.world;
 import java.util.HashMap;
 import java.util.Map;
 
-import graphics.twodimensions.object.Graphic2DFloor;
-import implementation.object.Booster;
-import implementation.object.Floor;
-import implementation.object.IterableEntity;
-import implementation.object.Objective;
-import implementation.object.Square;
-import implementation.object.TaggedEntity;
 import implementation.world.indexers.ObjectIndexer;
 
 public class IndexMaster {

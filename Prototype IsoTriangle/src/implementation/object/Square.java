@@ -18,7 +18,7 @@ public class Square extends MovingEntity implements IterableEntity, PaintableEnt
 	public static final int delta_family = 3;
 	public static final int epsilon_family = 4;
 	
-	public static final double basic_radius = 20;
+	public static final double basic_radius = 15;
 	
 	private GraphicalObject representation;
 	private WorldMaster master;

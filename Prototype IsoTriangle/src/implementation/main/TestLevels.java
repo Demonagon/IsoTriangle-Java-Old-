@@ -1,6 +1,6 @@
 package implementation.main;
 
-import graphics.twodimensions.object.Graphic2DFloorCover;
+import core.world.WorldMaster;
 import implementation.object.Booster;
 import implementation.object.CheckPoint;
 import implementation.object.Floor;
@@ -8,7 +8,6 @@ import implementation.object.Objective;
 import implementation.object.Spawner;
 import implementation.object.Square;
 import implementation.world.IndexMaster;
-import core.world.WorldMaster;
 
 public abstract class TestLevels {
 	public static void level_diago_mauvais(WorldMaster master, IndexMaster index) {
@@ -58,7 +57,7 @@ public abstract class TestLevels {
 	public static void level_grand_quadruble(WorldMaster master, IndexMaster index) {
 		master.spawnEntity(new Floor(525, 275, 846, 350, 0));
 		master.spawnEntity(new Floor(525, 275, 846, 350, 0));
-		//master.spawnEntity(new Floor(275, 525, 350, 850, 0));
+		master.spawnEntity(new Floor(273, 525, 350, 850, 0));
 		
 		for(int x = 175; x < 950; x += 100)
 			for(int y = 175; y < 950; y += 100) {
@@ -70,8 +69,8 @@ public abstract class TestLevels {
 			}
 		
 		Square.SquareFactory alpha_factory = new Square.SquareFactory(master, index, Square.alpha_family);
-		Square.SquareFactory beta_factory = new Square.SquareFactory(master, index, Square.beta_family);
-		Square.SquareFactory gamma_factory = new Square.SquareFactory(master, index, Square.gamma_family);
+		//Square.SquareFactory beta_factory = new Square.SquareFactory(master, index, Square.beta_family);
+		//Square.SquareFactory gamma_factory = new Square.SquareFactory(master, index, Square.gamma_family);
 
 		master.spawnEntity( new Spawner(master, alpha_factory, 275, 775));
 		master.spawnEntity( new Objective(master, index, 775, 275, 20, Square.alpha_family) );
